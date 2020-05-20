@@ -1,0 +1,30 @@
+.navbar-header h4 {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+.navbar-header h4 span {
+  color: #058a19;
+}
+
+.head-title {
+  display: flex;
+  /* flex-wrap: nowrap; */
+  flex-direction: row;
+  justify-content: center;
+}
+
+.head-title h1 {
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+
+.head-title button{
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #058A19;
+}
+
+.modal .modal-dialog .modal-content .modal-header button {
+  margin-top: -38px;
+}
