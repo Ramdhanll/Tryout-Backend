@@ -21,6 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('date_of_birth')->nullable();
             $table->text('address')->nullable();
             $table->string('photo')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
         });

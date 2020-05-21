@@ -17,12 +17,12 @@ class CreateTeachersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->bigInteger('nip')->nullable();
-            $table->string('name');
             $table->string('gender')->nullable();
             $table->string('date_of_birth')->nullable();
             $table->text('address')->nullable();
             $table->string('lesson')->nullable();
             $table->string('photo')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class CreateAnswersTable extends Migration
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->integer('user_answer_option');
             $table->integer('mark'); 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ class CreateEnrollExamsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('exam_id')->constrained()->onDelete('cascade');
             $table->string('attendance_status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

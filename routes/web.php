@@ -22,5 +22,9 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::resources([
-    'exam'  =>  'ExamController'
+    'dashboard' => 'DashboardController',
+    'student'   => 'StudentController',
+    'teacher'   => 'TeacherController',
+    'exam'      => 'ExamController',
+    
 ]);

@@ -18,6 +18,7 @@ class CreateOptionsTable extends Migration
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->integer('option_number');
             $table->string('option_title');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

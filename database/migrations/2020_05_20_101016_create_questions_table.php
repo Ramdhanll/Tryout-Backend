@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->foreignId('exam_id')->constrained()->onDelete('cascade');
             $table->text('question_title');
             $table->integer('answer_option');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

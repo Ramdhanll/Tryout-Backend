@@ -7,19 +7,15 @@
   color: #058a19;
 }
 
-.head-title {
-  display: flex;
-  /* flex-wrap: nowrap; */
-  flex-direction: row;
-  justify-content: center;
+.section-exam {
+  text-align: left;
 }
-
-.head-title h1 {
+.section-exam h1 {
   font-size: 20px !important;
   font-weight: bold !important;
 }
 
-.head-title button{
+.section-exam button{
   border-radius: 10px;
   font-size: 14px;
   background-color: #058A19;
@@ -27,4 +23,20 @@
 
 .modal .modal-dialog .modal-content .modal-header button {
   margin-top: -38px;
+}
+
+.card-title h1 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+}
+
+.section-pp {
+  display: flex;
+  justify-content: center;
+}
+
+.section-pp .img-user {
+  width: 150px !important;
+  height: 150px !important;
+
 }

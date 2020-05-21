@@ -17,12 +17,12 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->bigInteger('nisn');
-            $table->string('name');
             $table->string('gender');
             $table->date('date_of_birth');
             $table->text('address');
             $table->string('expertise_program');
             $table->string('photo');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

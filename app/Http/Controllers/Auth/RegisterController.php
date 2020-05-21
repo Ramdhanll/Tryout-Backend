@@ -83,7 +83,7 @@ class RegisterController extends Controller
                 'gender'        => '',
                 'date_of_birth' => '',
                 'address'       => '',
-                'photo'         => ''
+                'photo'         => 'default.jpg'
             ]);
         }
 
@@ -91,12 +91,11 @@ class RegisterController extends Controller
             Teacher::create([
                 'user_id'       => $user->id,
                 'nip'           => '',
-                'name'          => $user->name,
                 'gender'        => '',
                 'date_of_birth' => '',
                 'address'       => '',
                 'lesson'        => '',
-                'photo'         => ''
+                'photo'         => 'default.jpg'
             ]);
         }
 
