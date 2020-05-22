@@ -29,3 +29,6 @@ Route::resources([
     'question'      => 'QuestionController',
     
 ]);
+
+Route::get('/exam/question/{id}', 'ExamController@showQuestion')->name('exam.question');
+Route::get('/exam/question/option/{id}', 'ExamController@showOption')->name('exam.question.option');

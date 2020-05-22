@@ -19,8 +19,8 @@
           <div class="col-xl-12">
               <div class="card">
                   <div class="card-body section-question d-flex">
-                      <h1 class="box-title">DAFTAR PERTANYAAN LIST</h1>
-                      <button class="btn btn-success ml-auto" data-toggle="modal" data-target="#addquestion">Tambah ujian</button>
+                    <h1 class="box-title">DAFTAR PERTANYAAN UJIAN {{ strtoupper($title_exam) }}</h1>
+                    <button class="btn btn-success ml-auto" data-toggle="modal" data-target="#addquestion">Tambah Pertanyaan</button>
                   </div>
                   <div class="card-body--">
                       <div class="table-stats order-table ov-h">
@@ -28,7 +28,6 @@
                               <thead>
                                   <tr>
                                       <th>No</th>
-                                      <th>Judul Ujian</th>
                                       <th>Pertanyaan</th>
                                       <th>Jawaban Benar</th>
                                       <th class="text-left">Action</th>
@@ -37,8 +36,7 @@
                               <tbody>
                                 @forelse ($questions as $question)
                                 <tr>
-                                  <td>{{ $loop->index + 1 }}</td>
-                                  <td>{{ $question->exam->title }}</td>
+                                  <td>{{ $questions->currentPage() == '1' ? $loop->index + 1 : $questions->perPage() + 1 }}</td>
                                   <td>{{ $question->question_title }}</td>
                                   <td>
                                     @if ($question->answer_option === 1)
@@ -52,7 +50,7 @@
                                     @endif
                                   </td>
                                   <td class="text-left">
-                                    <a href="{{ route('question.show', $question->id )}}" class="btn btn-success py-1 px-2 mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{ route('exam.question.option', $question->id )}}" class="btn btn-success py-1 px-2 mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="{{ route('question.edit', $question->id )}}" class="btn btn-warning py-1 px-2 mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                       <form action="{{ route('question.destroy', $question->id )}}" method="post" class="d-inline">
                                         @csrf
@@ -62,9 +60,10 @@
                                   </td>
                                 </tr>
                                 @empty
-                                    
                                 @endforelse
-                                  
+                                <tr>
+                                  <td colspan="5">SOAL {{ $questions->total() }} / {{ $total_question}}</td>
+                                </tr>
                               </tbody>
                           </table>
                       </div> <!-- /.table-stats -->
@@ -77,6 +76,9 @@
   <!-- /.orders -->
 </div>
 <!-- /.content -->
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="addquestion" tabindex="-1" role="dialog" aria-labelledby="addquestionLabel" aria-hidden="true">
@@ -95,11 +97,7 @@
             <div class="form-group">
               <label for="exam_id">Judul Ujian</label>
               <select class="form-control @error('exam_id') is-invalid @enderror" name="exam_id" id="">
-                @forelse ($exams as $exam)
                   <option value="{{ $exam->id }}">{{ $exam->title }}</option>
-                @empty
-                  <option value="">Ujian Tidak Kosong</option>
-                @endforelse
               </select>
             </div>
             @error('exam_id')
@@ -173,8 +171,6 @@
     </div>
   </div>
 </div>
-
-
 @endsection
 
 @push('after-script')

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Option;
+use App\Question;
 use App\Enroll_exam;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExamRequest;
@@ -10,9 +12,7 @@ use App\Http\Requests\ExamRequest;
 class ExamController extends Controller
 {
     public function index() {
-        $data = Exam::with(['enroll_exam'])->get();
-
-        // dd($data);
+        $data = Exam::with(['enroll_exam','question'])->get();
         return view('pages.exam.index', [
             'exams' => $data
         ]);
@@ -40,8 +40,30 @@ class ExamController extends Controller
         $data = $request->all();
         $data['status'] = 'pending';
         Exam::create($data);
+
         return redirect(route('exam.index'))->with(['succes' => 'Data berhasil ditambahkan!']);
 
+    }
+
+    public function showQuestion($id) {
+        $exam = Exam::findOrFail($id);
+        $questions = Question::with('exam')->where('exam_id',$id)->orderBy('id','desc')->paginate(5);
+        $title_exam = Exam::select('title','total_question')->where('id',$id)->first();
+        return view('pages.exam.showQuestion', [
+            'questions' => $questions,
+            'total_question'    => $title_exam->total_question,
+            'title_exam'    =>  $title_exam->title,
+            'exam' => $exam
+        ]);
+    }
+
+    public function showOption($id) {
+        $options = Option::where('question_id',$id)->orderBy('option_number','asc')->get();
+        $question = Question::findOrFail($options[0]->question_id);
+        return view('pages.exam.showOption', [
+            'options' => $options,
+            'question' => $question
+        ]);
     }
 
     /**
@@ -52,7 +74,15 @@ class ExamController extends Controller
      */
     public function show($id)
     {
-    
+        $exams = Exam::all();
+        $questions = Question::with('exam')->where('id',$id)->orderBy('id','desc')->paginate(5);
+        // dd($questions);
+
+        return view('pages.exam.show', [
+            'exams' => $exams,
+            'questions' => $questions,
+            
+        ]);
     }
 
     /**

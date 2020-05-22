@@ -44,13 +44,13 @@
                                   <td>{{ $exam->title }}</td>
                                   <td>{{ $exam->date_time }}</td>
                                   <td>{{ $exam->duration }} Menit</td>
-                                  <td>{{ $exam->total_question }} Soal</td>
+                                  <td> {{ count($exam->question)}}  / {{ $exam->total_question }} Soal</td>
                                   <td>{{ count($exam->enroll_exam) }} Peserta</td>
                                   <td>
                                       <span class="badge badge-complete">{{ $exam->status }}</span>
                                   </td>
                                   <td class="text-left">
-                                    <a href="{{ route('exam.show', $exam->id )}}" class="btn btn-success py-1 px-2 mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{ route('exam.question', $exam->id )}}" class="btn btn-success py-1 px-2 mr-1" data-toggle="tooltip" data-placement="bottom" title="Detail Pertanyaan"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="{{ route('exam.edit', $exam->id )}}" class="btn btn-warning py-1 px-2 mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                       <form action="{{ route('exam.destroy', $exam->id )}}" method="post" class="d-inline">
                                         @csrf
