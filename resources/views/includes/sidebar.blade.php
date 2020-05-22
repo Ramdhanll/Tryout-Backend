@@ -32,6 +32,9 @@
                 <a href="{{ route('exam.index')}}"> <i class="menu-icon ti-ruler-pencil"></i>Exam </a>
             </li>
             <li>
+                <a href="{{ route('question.index')}}"> <i class="menu-icon ti-notepad"></i>Question </a>
+            </li>
+            <li>
                 <a class="" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

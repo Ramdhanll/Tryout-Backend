@@ -16,4 +16,8 @@ class exam extends Model
     public function enroll_exam() {
         return $this->hasMany('App\Enroll_exam');
     }
+
+    public function question() {
+        return $this->hasMany('App\Question');
+    }
 }

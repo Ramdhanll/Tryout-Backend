@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exam;
 use App\Enroll_exam;
 use Illuminate\Http\Request;
+use App\Http\Requests\ExamRequest;
 
 class ExamController extends Controller
 {
@@ -34,12 +35,11 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
         $data = $request->all();
         $data['status'] = 'pending';
         Exam::create($data);
-
         return redirect(route('exam.index'))->with(['succes' => 'Data berhasil ditambahkan!']);
 
     }
@@ -63,7 +63,10 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Exam::findOrFail($id);
+        return view('pages.exam.edit',[
+            'exam'  =>  $data
+        ]);
     }
 
     /**
@@ -73,9 +76,13 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ExamRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $item = Exam::findOrFail($id);
+        $item->update($data);
+
+        return redirect(route('exam.index'))->with(['succes' => 'Data berhasil diubah!']);
     }
 
     /**
@@ -86,7 +93,7 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return redirect( route('student.index'))->with(['success' => 'Data berhasil dihapus']);
+        Exam::destroy($id);
+        return redirect( route('exam.index'))->with(['success' => 'Data berhasil dihapus']);
     }
 }

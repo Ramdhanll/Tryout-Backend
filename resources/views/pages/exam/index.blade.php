@@ -34,7 +34,7 @@
                                       <th>Total Pertanyaan</th>
                                       <th>Total Pendaftar</th>
                                       <th>Status</th>
-                                      <th>Action</th>
+                                      <th class="text-left">Action</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -43,18 +43,21 @@
                                   <td>{{ $loop->index + 1 }}</td>
                                   <td>{{ $exam->title }}</td>
                                   <td>{{ $exam->date_time }}</td>
-                                  <td>{{ $exam->duration }}</td>
-                                  <td>{{ $exam->total_question }}</td>
-                                  <td>{{ count($exam->enroll_exam) }}</td>
+                                  <td>{{ $exam->duration }} Menit</td>
+                                  <td>{{ $exam->total_question }} Soal</td>
+                                  <td>{{ count($exam->enroll_exam) }} Peserta</td>
                                   <td>
-                                    {{-- <select name="" id="" class="form-control">
-                                      <option value=""><span class="badge badge-complete bg-warning">Active</span></option>
-                                      <option value=""><span class="badge badge-warning">Pending</span></option>
-                                      <option value=""><span class="badge badge-complete">Completed</span></option>
-                                    </select> --}}
                                       <span class="badge badge-complete">{{ $exam->status }}</span>
                                   </td>
-                                  <td><span class="badge badge-complete">Change Status</span></td>
+                                  <td class="text-left">
+                                    <a href="{{ route('exam.show', $exam->id )}}" class="btn btn-success py-1 px-2 mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{ route('exam.edit', $exam->id )}}" class="btn btn-warning py-1 px-2 mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                      <form action="{{ route('exam.destroy', $exam->id )}}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger py-1 px-2"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                      </form>
+                                  </td>
                               </tr>
                                 @empty
                                     
@@ -95,7 +98,7 @@
             </div>
             <div class="form-group">
               <label for="date_time">Waktu Pelaksanaan</label>
-              <input type="text" id="picker" class="form-control" name="date_time">
+              <input type="text" id="picker" class="form-control @error('date_time') is-invalid @enderror" name="date_time">
               @error('date_time')
                 <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
               @enderror
@@ -103,7 +106,7 @@
             <div class="form-group">
               <div class="form-group">
                 <label for="duration">Durasi</label>
-                <select class="form-control" name="duration" id="">
+                <select class="form-control @error('duration') is-invalid @enderror" name="duration" id="">
                   <option value="30">30 Menit</option>
                   <option value="60">60 Menit</option>
                   <option value="90">90 Menit</option>
@@ -131,6 +134,8 @@
     </div>
   </div>
 </div>
+
+
 @endsection
 
 @push('after-script')
@@ -140,7 +145,7 @@
         timepicker  : true,
         datepicker  : true,
         format      : 'd-m-Y H:00:00',
-        // value       : Date.now().toString(),
+        value       : '',
 
     })
   </script>

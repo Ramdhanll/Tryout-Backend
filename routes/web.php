@@ -26,5 +26,6 @@ Route::resources([
     'student'   => 'StudentController',
     'teacher'   => 'TeacherController',
     'exam'      => 'ExamController',
+    'question'      => 'QuestionController',
     
 ]);
