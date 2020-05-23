@@ -6,7 +6,6 @@
 @endpush
 
 @section('content')
-
 <!-- Content -->
 <div class="content">
   <!-- Orders -->
@@ -18,7 +17,7 @@
                   <h3>FORM EDIT QUESTION</h3>
                 </div>
                 <div class="card-body-- p-3">
-                  <form action="{{ route('question.update', $question->id)}}" method="post">
+                  <form action="{{ route('exam.question.update', $question->id)}}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -60,18 +59,31 @@
                         @enderror
                       </div>
 
+                      @foreach ($question->option as $item)
+                      <?php $opsi = ['A','B','C','D'] ?>
                       <div class="form-group">
-                        <label for="option[]">Opsi A</label>
+                        <label for="option[]">Opsi {{ $opsi[$loop->index]}}</label>
+                        <input type="hidden" name="option_id[]" value="{{ $item->id }}">
                         <input type="text"
-                          class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                          class="form-control @error('option[]') is-invalid @enderror" value="{{ $item->option_title }}" name="option[]" id="option[]" aria-describedby="helpId">
                           @error('option[]')
                             <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                           @enderror
                       </div>
-                      <div class="form-group">
+                      @endforeach
+                      {{-- <div class="form-group">
+                        <label for="option[]">Opsi A</label>
+                        <input type="hidden" name="option_id" value="{{}}">
+                        <input type="text"
+                          class="form-control @error('option[]') is-invalid @enderror" value="{{ $question->option[0]->option_title }}" name="option[]" id="option[]" aria-describedby="helpId">
+                          @error('option[]')
+                            <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
+                          @enderror
+                      </div> --}}
+                      {{-- <div class="form-group">
                         <label for="option[]">Opsi B</label>
                         <input type="text"
-                          class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                          class="form-control @error('option[]') is-invalid @enderror" value="{{ $question->option[1]->option_title }}" name="option[]" id="option[]" aria-describedby="helpId">
                           @error('option[]')
                             <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                           @enderror
@@ -79,7 +91,7 @@
                       <div class="form-group">
                         <label for="option[]">Opsi C</label>
                         <input type="text"
-                          class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                          class="form-control @error('option[]') is-invalid @enderror" value="{{ $question->option[2]->option_title }}" name="option[]" id="option[]" aria-describedby="helpId">
                           @error('option[]')
                             <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                           @enderror
@@ -87,11 +99,11 @@
                       <div class="form-group">
                         <label for="option[]">Opsi D</label>
                         <input type="text"
-                          class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                          class="form-control @error('option[]') is-invalid @enderror" value="{{ $question->option[3]->option_title }}" name="option[]" id="option[]" aria-describedby="helpId">
                           @error('option[]')
                             <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                           @enderror
-                      </div>
+                      </div> --}}
                     </div>
                     <div class="d-flex justify-content-end pb-3 pr-3">
                       <button type="submit" class="btn btn-success py-1 px-2 mr-2">Simpan</button>

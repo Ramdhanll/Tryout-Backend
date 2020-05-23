@@ -47,7 +47,7 @@ class ExamController extends Controller
 
     public function showQuestion($id) {
         $exam = Exam::findOrFail($id);
-        $questions = Question::with('exam')->where('exam_id',$id)->orderBy('id','desc')->paginate(5);
+        $questions = Question::with('exam')->where('exam_id',$id)->orderBy('id','asc')->paginate(5);
         $title_exam = Exam::select('title','total_question')->where('id',$id)->first();
         return view('pages.exam.showQuestion', [
             'questions' => $questions,
@@ -55,6 +55,40 @@ class ExamController extends Controller
             'title_exam'    =>  $title_exam->title,
             'exam' => $exam
         ]);
+    }
+
+    public function showQuestionEdit($id) {
+        // dd($data);
+        $exams = Exam::all();
+        $data = Question::with(['option'])->where('id', $id)->first();
+        // $data = Question::findOrFail($id);
+        return view('pages.exam.showQuestionEdit',[
+            'exams'      => $exams,
+            'question'  =>  $data
+        ]);
+    }
+
+    public function questionUpdate(Request $request, $id) {
+        // dd($request->all());
+        $data = $request->all();
+        $question = array(
+            'exam_id'           => $request->exam_id,
+            'question_title'    => $request->question_title,
+            'answer_option'     =>  $request->answer_option
+        );
+        
+        $item = Question::findOrFail($id);
+        $item->update($data);
+
+        // Update Option
+        for ($i=0; $i < count($request->option_id); $i++) { 
+            $option = Option::find($request->option_id[$i]);
+            $option->option_title = $request->option[$i];
+            // dd($option);
+            $option->save();
+        }
+
+        return redirect(route('exam.question' , $request->exam_id))->with(['succes' => 'Data berhasil diubah!']);
     }
 
     public function showOption($id) {

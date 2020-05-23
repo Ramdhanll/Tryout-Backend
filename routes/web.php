@@ -31,4 +31,6 @@ Route::resources([
 ]);
 
 Route::get('/exam/question/{id}', 'ExamController@showQuestion')->name('exam.question');
+Route::get('/exam/question/{id}/edit', 'ExamController@showQuestionEdit')->name('exam.question.edit');
+Route::put('/exam/question/{id}/edit', 'ExamController@questionUpdate')->name('exam.question.update');
 Route::get('/exam/question/option/{id}', 'ExamController@showOption')->name('exam.question.option');

@@ -14,4 +14,8 @@ class Question extends Model
     public function exam() {
         return $this->belongsTo('App\Exam');
     }
+
+    public function option() {
+        return $this->hasMany('App\Option');
+    }
 }

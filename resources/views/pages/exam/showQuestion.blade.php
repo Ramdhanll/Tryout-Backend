@@ -18,7 +18,7 @@
       <div class="row">
           <div class="col-xl-12">
               <div class="card">
-                  <div class="card-body section-question d-flex">
+                  <div class="card-body section-exam d-flex">
                     <h1 class="box-title">DAFTAR PERTANYAAN UJIAN {{ strtoupper($title_exam) }}</h1>
                     <button class="btn btn-success ml-auto" data-toggle="modal" data-target="#addquestion">Tambah Pertanyaan</button>
                   </div>
@@ -51,7 +51,7 @@
                                   </td>
                                   <td class="text-left">
                                     <a href="{{ route('exam.question.option', $question->id )}}" class="btn btn-success py-1 px-2 mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="{{ route('question.edit', $question->id )}}" class="btn btn-warning py-1 px-2 mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a href="{{ route('exam.question.edit', $question->id )}}" class="btn btn-warning py-1 px-2 mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                       <form action="{{ route('question.destroy', $question->id )}}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')

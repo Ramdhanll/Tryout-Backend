@@ -14,10 +14,10 @@
       <div class="row">
           <div class="col-xl-8 m-auto">
               <div class="card">
-                  <div class="card-body section-option ">
+                  <div class="card-body section-exam ">
                     <h1 class="box-title">SOAL</h1>
                         <h3>{{ $question->question_title }}</h3>
-                        <h5>Jawaban benar :
+                        <h5 class="mt-3">Jawaban benar :
                           @if ($question->answer_option == 1)
                             A
                           @elseif($question->answer_option == 2)
