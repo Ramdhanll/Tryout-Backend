@@ -31,6 +31,13 @@ Route::group(['middleware' => ['auth:api']], function () {
 Route::post('/login','API\AuthController@login');
 Route::post('/register','API\AuthController@register');
 
-Route::POST('/register-admin', 'API\AuthController@register_admin');
-Route::POST('/register-teacher', 'API\AuthController@register_teacher');
-Route::POST('/register-student', 'API\AuthController@register_student');
+// In Middleware
+Route::post('/set-student/{id}', 'API\ProfileController@set_student');
+Route::post('/set-teacher/{id}', 'API\ProfileController@set_teacher');
+
+Route::get('/get-exam', 'API\ExamController@get_exam');
+Route::post('/set-exam', 'API\ExamController@set_exam');
+Route::post('/update-exam/{id}', 'API\ExamController@update_exam');
+Route::post('/delete-exam/{id}', 'API\ExamController@delete_exam');
+
+

@@ -41,6 +41,10 @@ class QuestionController extends Controller
      */
     public function store(QuestionRequest $request)
     {
+        $request->validate([
+            'question_title'    =>  'required',
+            'answer_option'    =>  'required',
+        ]);
         $data = $request->all();
         $question = Question::create($data);
 

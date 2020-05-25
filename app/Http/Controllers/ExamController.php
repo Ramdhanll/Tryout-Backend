@@ -41,7 +41,7 @@ class ExamController extends Controller
         $data['status'] = 'pending';
         Exam::create($data);
 
-        return redirect(route('exam.index'))->with(['succes' => 'Data berhasil ditambahkan!']);
+        return redirect(route('exam.index'))->with(['success' => 'Data berhasil ditambahkan!']);
 
     }
 

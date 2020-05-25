@@ -9,6 +9,8 @@ class Student extends Model
 {
     use SoftDeletes;
     
+    protected $fillable = ['user_id','nisn', 'gender', 'date_of_birth', 'expertise_program', 'photo'];
+
     public function detail_student() {
         return $this->belongsTo('App\User');
     }

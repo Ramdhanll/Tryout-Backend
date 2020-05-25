@@ -60,7 +60,9 @@
                                   </td>
                               </tr>
                                 @empty
-                                    
+                                    <tr>
+                                      <td colspan="8" class="text-center font-weight-bold pt-4"><h4>DATA MASIH KOSONG</h4></td>
+                                    </tr>
                                 @endforelse
                                   
                               </tbody>
@@ -91,14 +93,14 @@
             <div class="form-group">
               <label for="title">Judul</label>
               <input type="text"
-                class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" name="title" id="title" aria-describedby="helpId" placeholder="Masukan judul ujian">
+                class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" name="title" id="title" aria-describedby="helpId" placeholder="Masukan judul ujian" autocomplete="off">
                 @error('title')
                   <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                 @enderror
             </div>
             <div class="form-group">
               <label for="date_time">Waktu Pelaksanaan</label>
-              <input type="text" id="picker" class="form-control @error('date_time') is-invalid @enderror" name="date_time">
+              <input type="text" id="picker" class="form-control @error('date_time') is-invalid @enderror" name="date_time" autocomplete="off">
               @error('date_time')
                 <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
               @enderror

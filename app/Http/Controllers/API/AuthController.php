@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\User;
+use App\Student;
+use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -52,7 +54,35 @@ class AuthController extends Controller
 			$data = $request->all();
 			$data['password']	= Hash::make($request->password);
 
-			User::create($data);
+			$user = User::create($data);
+
+			switch ($user->roles) {
+				case 'student':
+					Student::create([
+						'user_id'       		=> $user->id,
+						'nisn'           		=> null,
+						'gender'        		=> '',
+						'date_of_birth' 		=> '',
+						'address'       		=> '',
+						'expertise_program' => '',
+						'photo'         		=> 'default.jpg'
+				]);
+					break;
+				case 'teacher' :
+					Teacher::create([
+						'user_id'       => $user->id,
+						'nip'           => null,
+						'gender'        => '',
+						'date_of_birth' => '',
+						'address'       => '',
+						'lesson'        => '',
+						'photo'         => 'default.jpg'
+				]);
+					break;
+				default:
+					return response("404", 404);
+					break;
+			}
 
 			return response()->json('successfully',200);
 		}

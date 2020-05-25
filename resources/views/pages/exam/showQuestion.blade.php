@@ -132,7 +132,7 @@
             <div class="form-group">
               <label for="option[]">Opsi A</label>
               <input type="text"
-                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId" required>
                 @error('option[]')
                   <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                 @enderror
@@ -140,7 +140,7 @@
             <div class="form-group">
               <label for="option[]">Opsi B</label>
               <input type="text"
-                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId" required>
                 @error('option[]')
                   <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                 @enderror
@@ -148,7 +148,7 @@
             <div class="form-group">
               <label for="option[]">Opsi C</label>
               <input type="text"
-                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId" required>
                 @error('option[]')
                   <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                 @enderror
@@ -156,7 +156,7 @@
             <div class="form-group">
               <label for="option[]">Opsi D</label>
               <input type="text"
-                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId">
+                class="form-control @error('option[]') is-invalid @enderror" value="{{ old('option[]') }}" name="option[]" id="option[]" aria-describedby="helpId" required>
                 @error('option[]')
                   <small id="helpId" class="form-text text-danger invalid-feedback">{{ $message }}</small>
                 @enderror
