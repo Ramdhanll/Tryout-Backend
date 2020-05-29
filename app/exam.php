@@ -20,4 +20,8 @@ class exam extends Model
     public function question() {
         return $this->hasMany('App\Question');
     }
+
+    public function answer() {
+        return $this->hasMany('App\Answer');
+    }
 }

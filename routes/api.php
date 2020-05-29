@@ -41,5 +41,7 @@ Route::post('/update-exam/{id}', 'API\ExamController@update_exam');
 Route::post('/delete-exam/{id}', 'API\ExamController@delete_exam');
 
 Route::post('/enroll_exam', 'API\ExamController@enroll_exam');
+Route::post('/set_answer', 'API\ExamController@set_answer');
+Route::get('/get_result/{user_id}/{exam_id}', 'API\ExamController@get_result');
 
 

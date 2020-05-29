@@ -18,4 +18,8 @@ class Question extends Model
     public function option() {
         return $this->hasMany('App\Option');
     }
+
+    public function answer() {
+        return $this->hasMany('App\Answer');
+    }
 }

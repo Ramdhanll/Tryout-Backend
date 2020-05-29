@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Admin;
+use App\Student;
 use App\Teacher;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -85,9 +86,17 @@ class RegisterController extends Controller
                 'address'       => '',
                 'photo'         => 'default.jpg'
             ]);
-        }
-
-        if ($user->roles === 'teacher') {
+        } else if ($user->roles === 'student') {
+            Student::create([
+                'user_id'           => $user->id,
+                'nisn'              => null,
+                'gender'            => '',
+                'date_of_birth'     => '',
+                'address'           => '',
+                'expertise_program' => '',
+                'photo'             => 'default.jpg'
+            ]);
+        } else if ($user->roles === 'teacher') {
             Teacher::create([
                 'user_id'       => $user->id,
                 'nip'           => '',
@@ -98,6 +107,7 @@ class RegisterController extends Controller
                 'photo'         => 'default.jpg'
             ]);
         }
+
 
         return $user;
     }
