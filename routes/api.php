@@ -40,4 +40,6 @@ Route::post('/set-exam', 'API\ExamController@set_exam');
 Route::post('/update-exam/{id}', 'API\ExamController@update_exam');
 Route::post('/delete-exam/{id}', 'API\ExamController@delete_exam');
 
+Route::post('/enroll_exam', 'API\ExamController@enroll_exam');
+
 
