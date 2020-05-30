@@ -65,7 +65,7 @@ class AuthController extends Controller
 						'date_of_birth' 		=> '',
 						'address'       		=> '',
 						'expertise_program' => '',
-						'photo'         		=> 'default.jpg'
+						'photo'         		=> "http://api.tryout.test/images/user/default.png"
 				]);
 					break;
 				case 'teacher' :
@@ -76,7 +76,7 @@ class AuthController extends Controller
 						'date_of_birth' => '',
 						'address'       => '',
 						'lesson'        => '',
-						'photo'         => 'default.jpg'
+						'photo'         => 'http://api.tryout.test/images/user/default.png'
 				]);
 					break;
 				default:
