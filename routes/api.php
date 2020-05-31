@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:api']], function () {
 
-    Route::get('/user', function (Request $request) { return $request->user(); });
+    Route::get('/user', function (Request $request) { 
+        return User::with('detail_student')->where('id', Auth::id())->get(); 
+    });
     Route::post('/logout','API\AuthController@logout');
 
 });
@@ -32,7 +34,7 @@ Route::post('/login','API\AuthController@login');
 Route::post('/register','API\AuthController@register');
 
 // In Middleware
-Route::post('/set-student/{id}', 'API\ProfileController@set_student');
+Route::post('/set-student', 'API\ProfileController@set_student');
 Route::post('/set-teacher/{id}', 'API\ProfileController@set_teacher');
 
 Route::get('/get-exam', 'API\ExamController@get_exam');
