@@ -146,7 +146,7 @@
     $('#picker').datetimepicker({
         timepicker  : true,
         datepicker  : true,
-        format      : 'd-m-Y H:00:00',
+        format      : 'Y-m-d H:00:00',
         value       : '',
 
     })

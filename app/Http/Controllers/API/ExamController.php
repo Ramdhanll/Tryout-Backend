@@ -4,11 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Exam;
 use App\Answer;
+use App\User;
 use App\Question;
 use App\Enroll_exam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
@@ -19,7 +21,9 @@ class ExamController extends Controller
      */
     public function get_exam()
     {
-        $data = Exam::withCount(['enroll_exam','question'])->get();
+        $data = Exam::withCount(['enroll_exam','question'])
+                    ->where('date_time','>',NOW())
+                    ->get();
         
         return response()->json($data, 200);
     }
@@ -47,14 +51,23 @@ class ExamController extends Controller
     }
 
     public function enroll_exam(Request $request) {
+
         $request->validate([
-            'user_id'   =>  'required|exists:users,id',
             'exam_id'   =>  'required|exists:exams,id'
         ]);
-        $request->request->add(['attendance_status' => 'pending']);
+        // $request->request->add(['attendance_status' => 'pending']);
+        $request->merge(['attendance_status' => 'pending']);
+        $request->merge(['user_id' => Auth::id()]);
+
         Enroll_exam::create($request->all());
 
         return response()->json('successfully', 200);
+    }
+
+    public function enroll_exam_registered(Request $request) {
+        $data = Enroll_exam::where('user_id', Auth::id())->get(['exam_id']);
+
+        return response()->json($data, 200);
     }
 
     public function set_answer(Request $request) {

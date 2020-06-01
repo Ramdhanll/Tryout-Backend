@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         return User::with('detail_student')->where('id', Auth::id())->get(); 
     });
     Route::post('/logout','API\AuthController@logout');
+	Route::post('/enroll_exam', 'API\ExamController@enroll_exam');
+	Route::get('/registered', 'API\ExamController@enroll_exam_registered');
 
 });
 
@@ -37,12 +39,11 @@ Route::post('/register','API\AuthController@register');
 Route::post('/set-student', 'API\ProfileController@set_student');
 Route::post('/set-teacher/{id}', 'API\ProfileController@set_teacher');
 
-Route::get('/get-exam', 'API\ExamController@get_exam');
+Route::get('/get-exams', 'API\ExamController@get_exam');
 Route::post('/set-exam', 'API\ExamController@set_exam');
 Route::post('/update-exam/{id}', 'API\ExamController@update_exam');
 Route::post('/delete-exam/{id}', 'API\ExamController@delete_exam');
 
-Route::post('/enroll_exam', 'API\ExamController@enroll_exam');
 Route::post('/set_answer', 'API\ExamController@set_answer');
 Route::get('/get_result/{user_id}/{exam_id}', 'API\ExamController@get_result');
 
