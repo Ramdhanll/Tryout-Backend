@@ -8,6 +8,7 @@ use App\Question;
 use App\Enroll_exam;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExamRequest;
+use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
@@ -39,6 +40,7 @@ class ExamController extends Controller
     {
         $data = $request->all();
         $data['status'] = 'pending';
+        $data['slug']   = Str::slug($request->title, '-');
         Exam::create($data);
 
         return redirect(route('exam.index'))->with(['success' => 'Data berhasil ditambahkan!']);

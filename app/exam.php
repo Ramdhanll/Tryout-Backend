@@ -10,7 +10,7 @@ class exam extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title', 'date_time', 'duration', 'total_question', 'status'
+        'title', 'date_time', 'duration', 'total_question', 'status','slug'
     ];
 
     public function enroll_exam() {

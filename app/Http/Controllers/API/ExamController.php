@@ -21,8 +21,12 @@ class ExamController extends Controller
      */
     public function get_exam()
     {
+        $car = \Carbon\Carbon::now()->toDateTimeString(); 
+        // return $car;
+        // return $date;
         $data = Exam::withCount(['enroll_exam','question'])
-                    ->where('date_time','>',NOW())
+                    ->where('date_time','>',$car)
+                    ->where('status', '=','pending')
                     ->get();
         
         return response()->json($data, 200);
@@ -125,15 +129,23 @@ class ExamController extends Controller
         return $mark;
     }
 
-    public function get_result($user_id, $exam_id) {
-        $total_question = Exam::findOrFail($exam_id)->get('total_question')->first();
-        $answer_right = Answer::where('user_id', $user_id)
-                                ->where('exam_id', $exam_id)
-                                ->sum('mark');
-        // (answer_right / total_question) * 100
-        $result = ((int) $answer_right /  $total_question->total_question) * 100;
-        return response()->json([
-            'result'    =>  $result
-        ], 200);
+    public function get_result(Request $request) {
+        $exam_registered = Enroll_exam::where('user_id', Auth::id())
+                            ->with('exam')
+                            ->get();
+
+        foreach ($exam_registered as $item) {
+            $total_question = $item->exam->total_question;
+            $answer_right = Answer::where('user_id', $item->user_id)
+                            ->where('exam_id', $item->exam_id)
+                            ->sum('mark');
+
+            $result = ((int) $answer_right /  $total_question) * 100;
+
+            $item->exam->result = $result;
+        }
+
+
+        return response()->json($exam_registered, 200);
     }
 }
