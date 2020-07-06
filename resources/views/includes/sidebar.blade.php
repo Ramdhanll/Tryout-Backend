@@ -10,9 +10,9 @@
             <li>
                 <a href="{{ route('student.index')}}"> <i class="menu-icon ti-user"></i>Student </a>
             </li>
-            <li>
+           {{--  <li>
                 <a href="{{ route('teacher.index')}}"> <i class="menu-icon ti-user"></i>Teacher </a>
-            </li>
+            </li> --}}
             <li>
                 <a href="{{ route('exam.index')}}"> <i class="menu-icon ti-ruler-pencil"></i>Exam </a>
             </li>

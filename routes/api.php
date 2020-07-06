@@ -30,7 +30,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::post('/enroll_exam', 'API\ExamController@enroll_exam');
 	Route::get('/registered', 'API\ExamController@enroll_exam_registered');
 	Route::get('/get-result', 'API\ExamController@get_result');
-
+	Route::post('/get-question', 'API\ExamController@get_question');
+	Route::post('/set-answer', 'API\ExamController@set_answer');
+	Route::get('/get-detail-exam-result/{exam_id}', 'API\ExamController@get_detail_exam_result');
 });
 
 Route::post('/login','API\AuthController@login');
@@ -45,6 +47,5 @@ Route::post('/set-exam', 'API\ExamController@set_exam');
 Route::post('/update-exam/{id}', 'API\ExamController@update_exam');
 Route::post('/delete-exam/{id}', 'API\ExamController@delete_exam');
 
-Route::post('/set_answer', 'API\ExamController@set_answer');
 
 

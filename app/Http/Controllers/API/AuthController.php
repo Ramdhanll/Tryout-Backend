@@ -88,6 +88,7 @@ class AuthController extends Controller
 		}
 
 		public function logout() {
+			return response()->json(auth()->id());
 			// get auth from user, get token from user , each token will be deleted
 			auth()->user()->tokens()->each(function($token, $key) {
 					$token->delete();

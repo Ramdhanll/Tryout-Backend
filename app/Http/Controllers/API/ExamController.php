@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class ExamController extends Controller
 {
@@ -75,49 +76,26 @@ class ExamController extends Controller
     }
 
     public function set_answer(Request $request) {
-        
+        // return $request->all();
+        $answers = $request->user_answers;
+        $userID = Auth::id();
+        $data = array();
+        for($i=0; $i < count($answers); $i++) {
+            $question = Question::findOrFail($answers[$i][0]);
+            $mark = $this->check_answer($question->answer_option, $answers[$i][1]);
+            $data['user_id'] = $userID;
+            $data['exam_id'] = $request->exam_id;
+            $data['question_id'] = $answers[$i][0];
+            $data['user_answer_option'] = $answers[$i][1];
+            $data['mark']  = $mark;
 
-        $answer = DB::table('answers')->where([
-            ['user_id','=',$request->user_id],
-            ['question_id','=', $request->question_id]
-        ]);
-
-        
-        if (count($answer->get()) > 0) {
-            $request->validate([
-                'user_id'               =>  'required|exists:users,id',
-                'exam_id'               =>  'required|exists:exams,id',
-                'question_id'           =>  'required|exists:questions,id',
-                'user_answer_option'    =>  'required'
-            ]);
-
-            $question = Question::findOrFail($request->question_id);
-            $mark = $this->check_answer($question->answer_option, $request->user_answer_option);
-            $request->request->add(['mark' => $mark]);            
-
-            $answer->update($request->all());
-            
-            return response()->json('successfully', 200);
-        } else {
-            $request->validate([
-                'user_id'               =>  'required|exists:users,id',
-                'exam_id'               =>  'required|exists:exams,id',
-                'question_id'           =>  'required|exists:questions,id',
-                'user_answer_option'    =>  'required'
-            ]);
-
-            $question = Question::findOrFail($request->question_id);
-            $mark = $this->check_answer($question->answer_option, $request->user_answer_option);
-            $request->request->add(['mark' => $mark]);
-            
-            Answer::create($request->all());
-            
-            return response()->json('successfully', 200);
+            Answer::create($data);
+            $data = [];
         }
-
-        return $answer;
-
-        
+        Enroll_exam::where('exam_id', $request->exam_id)
+                ->update(['attendance_status' => "completed"]);
+       
+        return response()->json('successfully', 200);
     }
 
     public function check_answer($answer_right, $user_answer) {
@@ -148,4 +126,32 @@ class ExamController extends Controller
 
         return response()->json($exam_registered, 200);
     }
+
+    public function get_question(Request $request) {
+
+        // return response()->json($request->all(), 200);   
+
+        // $data = Enroll_exam::with(['exam.question'])
+        //     ->where(exam.id,'=', 1)
+        //     ->get();
+        $slug = $request->slug;
+        $data = Enroll_exam::with('exam.question.option')
+                ->whereHas('exam', function (Builder $query) use ($slug) {
+                    $query->where('slug','=', $slug);
+                    $query->where('status','=', 'started');
+                })->get();
+
+
+        return response()->json($data, 200);
+    }
+
+    public function get_detail_exam_result(Request $request, $exam_id) {
+        $userID = Auth::id();
+        $result = Answer::where('user_id', $userID)
+                            ->where('exam_id', $exam_id)
+                            ->with('question.option')
+                            ->get();
+
+        return  $result;
+    }       
 }
