@@ -64,9 +64,9 @@ class ExamController extends Controller
         $request->merge(['attendance_status' => 'pending']);
         $request->merge(['user_id' => Auth::id()]);
 
-        Enroll_exam::create($request->all());
+        $enroll = Enroll_exam::create($request->all());
 
-        return response()->json('successfully', 200);
+        return response()->json($enroll, 200);
     }
 
     public function enroll_exam_registered(Request $request) {
